@@ -38,9 +38,11 @@
 
 .menu__container .menu_left {
   float: left;
+  padding-top: 1em;
 }
 
 .menu__container .menu_rigth {
+  padding-top: 1em;
   float: right;
 }
 
