@@ -20,6 +20,34 @@ function FavoritePage() {
         }
       });
   }, []);
+
+  const onClickDelete = (movieId, userFrom) => {
+    const variables = {
+      movieId,
+      userFrom,
+    };
+    axios
+      .post('/api/favorite/removeFromFavoriteOnList', variables)
+      .then((r) => {
+        if (r.data.success) {
+          axios
+            .post('/api/favorite/getFavoritedMovies', {
+              userFrom: localStorage.getItem('userId'),
+            })
+            .then((r) => {
+              if (r.data.success) {
+                console.log(r.data.favorited);
+                setFavorites(r.data.favorited);
+              } else {
+                alert('영화 정보를 가져오는데 실패 했습니다.');
+              }
+            });
+        } else {
+          alert('리스트를 지우는데 실패 했습니다.');
+        }
+      });
+  };
+
   const renderCards = Favorites.map((item, index) => {
     const content = (
       <div>
@@ -38,7 +66,9 @@ function FavoritePage() {
 
         <td>{item.movieRunTime} mins</td>
         <td>
-          <button>Remove</button>
+          <button onClick={() => onClickDelete(item.movieId, item.userFrom)}>
+            Remove
+          </button>
         </td>
       </tr>
     );

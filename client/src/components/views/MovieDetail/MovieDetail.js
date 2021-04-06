@@ -38,12 +38,6 @@ function MovieDetail(props) {
         {/* movie info */}
         <Movieinfo movie={Movie} />
         <br />
-        {/* actiors grid*/}
-        <div
-          style={{ display: 'flex', justifyContent: 'center', margin: '2em' }}
-        >
-          <button>Toggle Actor View</button>
-        </div>
       </div>
     </div>
   );

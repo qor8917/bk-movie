@@ -53,4 +53,13 @@ router.post('/getFavoritedMovies', (req, res) => {
   });
 });
 
+router.post('/removeFromFavoriteOnList', (req, res) => {
+  const { movieId, userFrom } = req.body;
+
+  Favorite.findOneAndDelete({ movieId, userFrom }).exec((err, doc) => {
+    if (err) return res.status(400).send(err);
+    return res.status(200).json({ success: true });
+  });
+});
+
 module.exports = router;
