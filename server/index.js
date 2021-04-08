@@ -4,9 +4,7 @@ const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-/* const config = require('./config/key'); */
-const config = require('./config/prod');
-require('dotenv').config();
+const config = require('./config/key');
 const mongoose = require('mongoose');
 const connect = mongoose
   .connect(config.mongoURI, {
@@ -30,19 +28,13 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/favorite', require('./routes/favorite'));
 app.use('/uploads', express.static('uploads'));
 
-app.use(express.static('client/build'));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
-});
-
-/* if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
   });
-} */
+}
 
 const port = process.env.PORT || 5000;
 
